@@ -1,0 +1,56 @@
+/* * {
+   -moz-box-sizing: border-box; 
+   box-sizing: border-box;
+} */
+
+.p_bgColorBlue {
+   background-color: midnightblue;
+   margin-top: 6rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   font-family: 'Russo One', sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+   font-size: 1.8em;
+}
+
+.tabTitle {
+   text-transform: uppercase;
+   font-size: 1.2em;
+   font-family: 'Russo One', sans-serif;
+}
+
+.formHidden {
+   display: none;
+}
+
+.formDisplay {
+   display: block;
+}
+
+.authorInfo {
+   font-size: 1.3em;
+   font-family: 'Russo One', sans-serif;
+}
+
+.authorInfo > a {
+   color: white;
+}
+
+.imgBook {
+   max-height: 250px;
+   display: block; 
+   margin: 1rem auto 0 auto;
+}
+
+.flexContainer {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.cardBook {
+   margin: 1rem;
+   width: 18rem;
+}

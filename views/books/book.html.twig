@@ -1,0 +1,72 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{book.name}}{% endblock %}
+{% block content %}
+      {% if isModification %}
+         <form method="POST" action="/books/update">
+            <div class="row m-2">
+               <div class="col-6">
+                  <h2>Informations : </h2>
+                  <div class="form-group">
+                     <label for="titre">Titre</label>
+                     <input type="text" class="form-control" id="titre" name="name" value="{{book.name}}">
+                  </div>
+                  <div class="form-group">
+                     <label for="auteur">Auteur</label>
+                     <select class="form-control" id="auteur" name="author">
+                        {% for author in authors %}
+                           <option {{author.id == book.author._id ? 'selected'}} value="{{author._id}}">{{author.firstname}} {{author.name}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+                  <div class="form-group">
+                     <label for="pages">Pages</label>
+                     <input type="number" class="form-control" id="pages" name="pages" value="{{book.pages}}">
+                  </div>
+               </div>
+               <div class="col-6">
+                  <div class="form-group">
+                     <label for="description">Description</label>
+                     <textarea 
+                        class="form-control" 
+                        id="description" 
+                        name="description" 
+                        rows="10"
+                     >{{book.description}}</textarea>
+                  </div>
+               </div>
+               <div class="col-12">
+                  <input type="submit" value="Valider" class="btn btn-success mt-3 w-100">
+               </div>
+            </div>
+            <input type="hidden" name="id" value="{{book._id}}">
+         </form>
+         <form action="/books/updateImage" method="POST" enctype="multipart/form-data">
+            <h2 class="row m-4">Image :</h2>
+            <div class="row m-2 mt-4">
+               <img src="/images/{{book.image}}" alt="" class="col-3">
+               <div class="col-9">
+                  <div class="form-group col-3">
+                     <label for="picture">Image</label>
+                     <input type="file" class="form-control-file" id="picture" name="image">
+                     <input type="submit" value="Modifier l'image" class="btn btn-success mt-3">
+                  </div>
+               </div>
+            </div>
+            <input type="hidden" name="id" value="{{book._id}}">
+         </form>
+      {% else %}
+         <div class="row m-2">
+            <div class="col-6">
+               <h2>Informations : </h2>
+               <p>Auteur : <a href="/authors/{{book.author._id}}">{{book.author.firstname}} {{book.author.name}}</a></p>
+               <p>Nombre de pages : {{book.pages}}</p>
+               <img src="/images/{{book.image}}" alt="">
+            </div>
+            <div class="col-6">
+               <h2>Résumé : </h2>
+               <p>{{book.description}}</p>
+            </div>
+         </div>
+      {% endif %}
+{% endblock %}

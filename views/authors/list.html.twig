@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Les auteurs{% endblock %}
+{% block content %}
+{% if message|length > 0 %}
+   <div id="modalInfo" class="alert alert-{{message.type}}" role="alert">
+      {{message.content}}
+   </div>
+{% endif %}
+   <table class="table text-center monTableau" id="tableauLivres">
+      <thead>
+         <tr class="table-dark">
+            <th class="tabTitle">Nom</th>
+            <th class="tabTitle">Prénom</th>
+            <th class="tabTitle">Nombre de livres</th>
+            <th class="tabTitle" colspan="2">Actions</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for author in authors %}
+            <tr>
+               <td class="align-middle">{{author.name}}</td>
+               <td class="align-middle"><a href="/authors/{{author._id}}">{{author.firstname}}</a></td>
+               <td class="align-middle">{{author.books|length}}</td>
+               <td class="align-middle"><a href="/authors/update/{{author._id}}" class="btn btn-warning">Modifier</a></td>
+               <td class="align-middle">
+                  <form 
+                     method="POST"
+                     action="/authors/delete/{{author._id}}"
+                     onsubmit="return confirm('Voulez-vous vraiment supprimer cet auteur ?');"
+                  >
+                     <button class="btn btn-danger" type="submit">Supprimer</button>
+                  </form>
+               </td>
+            </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <button onClick="toggleForm()" id="monButton" class="btn btn-success w-100">Ajouter</button>
+   <form id="ajoutForm" class="d-none" method="POST" action="">
+      <fieldset class="mt-3 mb-3">
+         <legend>Création d'un auteur</legend>
+         <div class="form-group">
+            <label for="firstname">Prénom</label>
+            <input type="text" class="form-control" id="firstname" name="firstname">
+         </div>
+         <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" name="name">
+         </div>
+         <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" name="age">
+         </div>
+         <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="women" name="sex" value="false">
+            <label for="women" class="form-check-label">Femme</label>
+         </div>
+         <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" id="man" name="sex" value="true">
+            <label for="man" class="form-check-label">Homme</label>
+         </div>
+         <button type="submit" class="btn btn-primary" id="validationFormAjout">Valider</button>
+      </fieldset>
+   </form>
+{% endblock %}
